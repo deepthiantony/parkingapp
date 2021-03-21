@@ -1,35 +1,22 @@
 package com.example.parking.model;
 
+import com.example.parking.enums.SlotStatus;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor
 @Entity
 public class Slot {
     @Id
     @GeneratedValue
     @Column(name = "slot_id")
-    Integer slotID;
-    @Column(name="status")
-    String status;
-//    @OneToMany(mappedBy = "slot",cascade = CascadeType.ALL)
-//    public List<Allocation> allocation;
-
-    public Slot() {
-    }
-
-    public Integer getSlotID() {
-        return slotID;
-    }
-
-    public void setSlotID(Integer slotID) {
-        this.slotID = slotID;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    private long slotID;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private SlotStatus slotStatus;
+    @OneToMany(mappedBy = "slot", fetch = FetchType.LAZY)
+    private List<Allocation> allocation;
 }
