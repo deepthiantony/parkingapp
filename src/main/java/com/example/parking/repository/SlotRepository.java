@@ -1,17 +1,14 @@
 package com.example.parking.repository;
 
-import com.example.parking.constants.Constants;
+import com.example.parking.enums.SlotStatus;
 import com.example.parking.model.Slot;
-import com.example.parking.service.ParkingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface SlotRepository extends JpaRepository<Slot,Integer> {
+    Slot findFirstBySlotStatus(SlotStatus slotStatus);
 
-public interface SlotRepository extends CrudRepository<Slot,Integer> {
-
-    List<Slot> findAll();
-    List<Slot> findByStatus(String status);
 
 
 }
