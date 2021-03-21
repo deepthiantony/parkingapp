@@ -1,6 +1,7 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.enums.AllocationStatus;
+import com.example.parking.enums.ErrorCode;
 import com.example.parking.enums.SlotStatus;
 import com.example.parking.exception.ParkingApplicationException;
 import com.example.parking.model.Allocation;
@@ -49,7 +50,7 @@ public class AllocationServiceImpl implements AllocationService {
         }
         Optional<Allocation> allocatedOptional = allocationRepository.findById(allocationId);
         if (!allocatedOptional.isPresent()) {
-            throw new ParkingApplicationException("Allocation with the given id cannot be found");
+            throw new ParkingApplicationException(ErrorCode.NOT_FOUND,"Allocation with the given id cannot be found");
         }
         Allocation allocation = allocatedOptional.get();
         allocation.setAllocationStatus(AllocationStatus.DEALLOCATED);
